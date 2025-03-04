@@ -1,6 +1,7 @@
 use nalgebra::DMatrix;
 
 pub mod chapter_1;
+pub mod chapter_2;
 
 /// 计算矩阵中指定位置的余子式。
 ///
