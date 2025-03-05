@@ -1,7 +1,7 @@
 mod tests {
     use nalgebra::DMatrix;
 
-    use crate::{minor, cofactor};
+    use crate::{cofactor, minor};
 
     /// Exercise 29
     /// 设有行列式
