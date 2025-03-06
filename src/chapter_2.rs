@@ -1,5 +1,5 @@
 mod tests {
-    use nalgebra::{Matrix3, RowVector3};
+    use nalgebra::{Matrix3, RowVector3, SVD};
 
     /// Exercise 13
     /// 设
@@ -29,5 +29,21 @@ mod tests {
             a_inverse,
             Some(Matrix3::new(1.0, 0.0, 0.0, -0.5, 0.5, 0.0, 0.0, 0.0, 1.0))
         );
+    }
+
+    /// Exercise 23
+    /// 矩阵
+    ///         [2 -1  2]
+    ///         [4  0  2]
+    ///         [0 -3  3]
+    ///
+    /// 的秩为？
+    #[test]
+    fn exercise_23() {
+        let matrix = Matrix3::new(2.0, -1.0, 2.0, 4.0, 0.0, 2.0, 0.0, -3.0, 3.0);
+        let svd = SVD::new(matrix, true, true);
+        let singular_values = svd.singular_values;
+        let rank = singular_values.iter().filter(|&&x| x > 1e-10).count();
+        assert_eq!(rank, 2);
     }
 }
