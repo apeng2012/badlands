@@ -46,4 +46,24 @@ mod tests {
         let rank = singular_values.iter().filter(|&&x| x > 1e-10).count();
         assert_eq!(rank, 2);
     }
+
+    /// Exercise 62
+    /// 矩阵
+    ///         [5 2 0]
+    ///     A = [1 3 0]
+    ///         [0 0 4]
+    ///
+    /// 满足 AB = A + 2B
+    /// 求 B
+    #[test]
+    fn exercise_62() {
+        let a = Matrix3::new(5.0, 2.0, 0.0, 1.0, 3.0, 0.0, 0.0, 0.0, 4.0);
+        let a_minus_2i: Matrix3<f64> = a - 2.0 * Matrix3::identity();
+        let a_minus_2i_inv = a_minus_2i.try_inverse().unwrap();
+        let b = a * a_minus_2i_inv;
+        assert_eq!(
+            b,
+            Matrix3::new(3.0, -4.0, 0.0, -2.0, 7.0, 0.0, 0.0, 0.0, 2.0)
+        );
+    }
 }
