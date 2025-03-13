@@ -1,5 +1,5 @@
 mod tests {
-    use nalgebra::{Matrix3, RowVector3, SVD};
+    use nalgebra::{matrix, Matrix3, RowVector3, SVD};
 
     /// Exercise 13
     /// 设
@@ -65,5 +65,34 @@ mod tests {
             b,
             Matrix3::new(3.0, -4.0, 0.0, -2.0, 7.0, 0.0, 0.0, 0.0, 2.0)
         );
+    }
+
+    /// Exercise 78
+    /// 矩阵
+    ///         [2 1 -1]
+    ///     A = [2 1 0]
+    ///         [1 -1 1]
+    ///
+    ///     B = [1 -1 3]
+    ///         [4 3 2]
+    ///
+    /// 满足 XA = B
+    /// 求 X
+    #[test]
+    fn exercise_78() {
+        let a = matrix![2.0, 1.0, -1.0;
+                                                            2.0, 1.0, 0.0;
+                                                            1.0, -1.0, 1.0];
+
+        let b = matrix![1.0, -1.0, 3.0;
+                                                            4.0, 3.0, 2.0];
+        let a_inv: Matrix3<f64> = a.try_inverse().unwrap();
+        let x = b * a_inv;
+        assert!(x.relative_eq(
+            &matrix![-2.0, 2.0, 1.0;
+                     -8.0/3.0, 5.0, -2.0/3.0],
+            1e-6,
+            1e-6
+        ));
     }
 }
